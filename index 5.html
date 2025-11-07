@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Girls Growing Stronger - Visual Program Overview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+
+        .header .tagline {
+            font-size: 1.1em;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        /* Flower decorations */
+        .flower {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Main Visual Card */
+        .main-visual {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease;
+        }
+
+        /* Journey Timeline */
+        .timeline-section {
+            margin-bottom: 50px;
+        }
+
+        .timeline-title {
+            text-align: center;
+            font-size: 2em;
+            color: #5a67d8;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .timeline {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f7dce7, #ffe8c9, #fff6c8, #dff6de, #ddefff, #eadfff);
+            z-index: 1;
+        }
+
+        .week-node {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+
+        .week-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .week-circle:hover {
+            transform: scale(1.15);
+        }
+
+        .week-1 { background: linear-gradient(135deg, #f7dce7, #e8a0b8); }
+        .week-2 { background: linear-gradient(135deg, #ffe8c9, #ffb347); }
+        .week-3 { background: linear-gradient(135deg, #fff6c8, #ffd700); }
+        .week-4 { background: linear-gradient(135deg, #dff6de, #90ee90); }
+        .week-5 { background: linear-gradient(135deg, #ddefff, #87ceeb); }
+        .week-6 { background: linear-gradient(135deg, #eadfff, #b19cd9); }
+
+        .week-label {
+            font-size: 0.9em;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        /* Week Cards Grid */
+        .weeks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .week-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .week-card:nth-child(1) { animation-delay: 0.1s; }
+        .week-card:nth-child(2) { animation-delay: 0.2s; }
+        .week-card:nth-child(3) { animation-delay: 0.3s; }
+        .week-card:nth-child(4) { animation-delay: 0.4s; }
+        .week-card:nth-child(5) { animation-delay: 0.5s; }
+        .week-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .week-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .week-card-header {
+            padding: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .week-card-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(45deg);
+        }
+
+        .week-number {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .week-theme {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .week-focus {
+            font-size: 0.95em;
+            opacity: 0.95;
+            font-style: italic;
+        }
+
+        .week-card-body {
+            padding: 20px;
+        }
+
+        .activity-box {
+            background: linear-gradient(135deg, #f7f8fc, #fafbff);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid;
+        }
+
+        .activity-label {
+            font-size: 0.85em;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .activity-content {
+            font-size: 1.05em;
+            color: #2d3748;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #edf2f7, #e2e8f0);
+            color: #4a5568;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        /* Impact Section */
+        .impact-section {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .impact-title {
+            font-size: 1.8em;
+            color: #5a67d8;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .impact-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .impact-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .impact-label {
+            font-size: 1em;
+            color: #4a5568;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .impact-description {
+            font-size: 0.85em;
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        /* Partners Section */
+        .partners-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .partners-title {
+            font-size: 1.8em;
+            color: #5a67d8;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .partner-card {
+            background: linear-gradient(135deg, #fef5e7, #fdebd0);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .partner-card:hover {
+            transform: scale(1.05);
+        }
+
+        .partner-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+
+        .partner-info {
+            flex: 1;
+        }
+
+        .partner-name {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 3px;
+        }
+
+        .partner-role {
+            font-size: 0.85em;
+            color: #718096;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5em; }
+            .timeline { flex-direction: column; gap: 20px; }
+            .timeline::before { display: none; }
+            .week-circle { width: 60px; height: 60px; font-size: 1em; }
+            .weeks-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <span class="flower">🌸</span>
+                Girls Growing Stronger
+                <span class="flower">🌸</span>
+            </h1>
+            <div class="subtitle">6-Week Transformational Program</div>
+            <div class="tagline">Empowering 4th & 5th Grade Girls to Bloom</div>
+        </div>
+
+        <!-- Main Visual Card -->
+        <div class="main-visual">
+            <!-- Journey Timeline -->
+            <div class="timeline-section">
+                <h2 class="timeline-title">✨ The Journey of Growth ✨</h2>
+                <div class="timeline">
+                    <div class="week-node">
+                        <div class="week-circle week-1">W1</div>
+                        <div class="week-label">Self-Love</div>
+                    </div>
+                    <div class="week-node">
+                        <div class="week-circle week-2">W2</div>
+                        <div class="week-label">Discover</div>
+                    </div>
+                    <div class="week-node">
+                        <div class="week-circle week-3">W3</div>
+                        <div class="week-label">Boundaries</div>
+                    </div>
+                    <div class="week-node">
+                        <div class="week-circle week-4">W4</div>
+                        <div class="week-label">Friendship</div>
+                    </div>
+                    <div class="week-node">
+                        <div class="week-circle week-5">W5</div>
+                        <div class="week-label">Resilience</div>
+                    </div>
+                    <div class="week-node">
+                        <div class="week-circle week-6">W6</div>
+                        <div class="week-label">Celebrate</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week Cards -->
+            <div class="weeks-grid">
+                <!-- Week 1 -->
+                <div class="week-card">
+                    <div class="week-card-header" style="background: linear-gradient(135deg, #f7dce7, #e8a0b8);">
+                        <div class="week-number">WEEK 1</div>
+                        <div class="week-theme">Self-Love & Self-Respect</div>
+                        <div class="week-focus">Building a positive sense of self</div>
+                    </div>
+                    <div class="week-card-body">
+                        <div class="activity-box" style="border-color: #e8a0b8;">
+                            <div class="activity-label">Main Activity</div>
+                            <div class="activity-content">Group discussion & reflection journal</div>
+                        </div>
+                        <div class="skills-container">
+                            <span class="skill-tag">Self-awareness</span>
+                            <span class="skill-tag">Positive self-talk</span>
+                            <span class="skill-tag">Self-acceptance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 2 -->
+                <div class="week-card">
+                    <div class="week-card-header" style="background: linear-gradient(135deg, #ffe8c9, #ffb347);">
+                        <div class="week-number">WEEK 2</div>
+                        <div class="week-theme">Discovering My Awesome Self</div>
+                        <div class="week-focus">Confidence, creativity, and strengths</div>
+                    </div>
+                    <div class="week-card-body">
+                        <div class="activity-box" style="border-color: #ffb347;">
+                            <div class="activity-label">Main Activity</div>
+                            <div class="activity-content">"All About Me" collage</div>
+                        </div>
+                        <div class="skills-container">
+                            <span class="skill-tag">Confidence building</span>
+                            <span class="skill-tag">Creative expression</span>
+                            <span class="skill-tag">Strengths identification</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 3 -->
+                <div class="week-card">
+                    <div class="week-card-header" style="background: linear-gradient(135deg, #fff6c8, #ffd700);">
+                        <div class="week-number">WEEK 3</div>
+                        <div class="week-theme">My Boundaries, My Power</div>
+                        <div class="week-focus">Emotional awareness and advocacy</div>
+                    </div>
+                    <div class="week-card-body">
+                        <div class="activity-box" style="border-color: #ffd700;">
+                            <div class="activity-label">Main Activity</div>
+                            <div class="activity-content">Traffic-Light Feelings exercise</div>
+                        </div>
+                        <div class="skills-container">
+                            <span class="skill-tag">Boundary setting</span>
+                            <span class="skill-tag">Emotional literacy</span>
+                            <span class="skill-tag">Self-advocacy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 4 -->
+                <div class="week-card">
+                    <div class="week-card-header" style="background: linear-gradient(135deg, #dff6de, #90ee90);">
+                        <div class="week-number">WEEK 4</div>
+                        <div class="week-theme">Friendship Garden</div>
+                        <div class="week-focus">Healthy friendships and kindness</div>
+                    </div>
+                    <div class="week-card-body">
+                        <div class="activity-box" style="border-color: #90ee90;">
+                            <div class="activity-label">Main Activity</div>
+                            <div class="activity-content">Friendship Recipe activity</div>
+                        </div>
+                        <div class="skills-container">
+                            <span class="skill-tag">Empathy</span>
+                            <span class="skill-tag">Communication</span>
+                            <span class="skill-tag">Conflict resolution</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 5 -->
+                <div class="week-card">
+                    <div class="week-card-header" style="background: linear-gradient(135deg, #ddefff, #87ceeb);">
+                        <div class="week-number">WEEK 5</div>
+                        <div class="week-theme">Bouncing Back Together</div>
+                        <div class="week-focus">Resilience and growth mindset</div>
+                    </div>
+                    <div class="week-card-body">
+                        <div class="activity-box" style="border-color: #87ceeb;">
+                            <div class="activity-label">Main Activity</div>
+                            <div class="activity-content">Mistake Masterpieces</div>
+                        </div>
+                        <div class="skills-container">
+                            <span class="skill-tag">Resilience</span>
+                            <span class="skill-tag">Growth mindset</span>
+                            <span class="skill-tag">Problem-solving</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 6 -->
+                <div class="week-card">
+                    <div class="week-card-header" style="background: linear-gradient(135deg, #eadfff, #b19cd9);">
+                        <div class="week-number">WEEK 6</div>
+                        <div class="week-theme">Shine Bright Celebration</div>
+                        <div class="week-focus">Vision, affirmations, and next steps</div>
+                    </div>
+                    <div class="week-card-body">
+                        <div class="activity-box" style="border-color: #b19cd9;">
+                            <div class="activity-label">Main Activity</div>
+                            <div class="activity-content">"Future Me" mini vision board</div>
+                        </div>
+                        <div class="skills-container">
+                            <span class="skill-tag">Goal setting</span>
+                            <span class="skill-tag">Visualization</span>
+                            <span class="skill-tag">Self-affirmation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Impact Section -->
+            <div class="impact-section">
+                <h3 class="impact-title">🎯 Expected Program Impact</h3>
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <div class="impact-value">95%</div>
+                        <div class="impact-label">Self-Confidence</div>
+                        <div class="impact-description">improved self-image</div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-value">88%</div>
+                        <div class="impact-label">Emotional Skills</div>
+                        <div class="impact-description">better boundaries</div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-value">92%</div>
+                        <div class="impact-label">Friendships</div>
+                        <div class="impact-description">healthier relationships</div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-value">100%</div>
+                        <div class="impact-label">Future Vision</div>
+                        <div class="impact-description">clearer goals</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Partners Section -->
+            <div class="partners-section">
+                <h3 class="partners-title">🤝 Our Support Network</h3>
+                <div class="partners-grid">
+                    <div class="partner-card">
+                        <div class="partner-icon">🏫</div>
+                        <div class="partner-info">
+                            <div class="partner-name">School Administration</div>
+                            <div class="partner-role">Principal & Staff Support</div>
+                        </div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-icon">👩‍🏫</div>
+                        <div class="partner-info">
+                            <div class="partner-name">Classroom Teachers</div>
+                            <div class="partner-role">Academic Alignment</div>
+                        </div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-icon">💜</div>
+                        <div class="partner-info">
+                            <div class="partner-name">Jasmine Akujobi</div>
+                            <div class="partner-role">Program Lead & Facilitator</div>
+                        </div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-icon">👭</div>
+                        <div class="partner-info">
+                            <div class="partner-name">Sister Educator</div>
+                            <div class="partner-role">Peer Mentorship</div>
+                        </div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-icon">🎯</div>
+                        <div class="partner-info">
+                            <div class="partner-name">Girl Scouts</div>
+                            <div class="partner-role">Leadership Development</div>
+                        </div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-icon">👨‍👩‍👧</div>
+                        <div class="partner-info">
+                            <div class="partner-name">Parent Community</div>
+                            <div class="partner-role">Home Reinforcement</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; color: white; margin-top: 30px; padding: 20px;">
+            <p style="font-size: 1.2em; margin-bottom: 10px;">
+                <strong>Empowering Young Women to Bloom with Confidence</strong>
+            </p>
+            <p style="opacity: 0.9;">
+                Led by Jasmine Akujobi & Collaborative Partners | Spring 2025
+            </p>
+            <p style="opacity: 0.8; font-size: 0.9em; margin-top: 10px;">
+                Building self-love, boundaries, healthy friendships, and bright futures 🌟
+            </p>
+        </div>
+    </div>
+</body>
+</html>
